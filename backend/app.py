@@ -1,4 +1,3 @@
-from typing import MutableMapping
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -24,7 +23,7 @@ db.create_all()
 
 
 # create a test route
-@app.route("/test", method=["GET"])
+@app.route("/test", methods=["GET"])
 def test():
     return jsonify({"message": "The server is running."})
 
@@ -49,7 +48,7 @@ def create_user():
 
 
 # get all users
-@app.route("api/flask/users", methods=["GET"])
+@app.route("/api/flask/users", methods=["GET"])
 def get_users():
     try:
         users = User.query.all()
@@ -64,8 +63,8 @@ def get_users():
 
 
 # get user by id
-@app.route("api/flask/users/<id>", methods=["GET"])
-def get_user():
+@app.route("/api/flask/users/<id>", methods=["GET"])
+def get_user(id):
     try:
         user = User.query.filter_by(id=id).first()  # get the first user with this id
         if user:
@@ -78,8 +77,8 @@ def get_user():
 
 
 # update a user by id
-@app.route("api/flask/users/<id>", methods=["PUT"])
-def update_user():
+@app.route("/api/flask/users/<id>", methods=["PUT"])
+def update_user(id):
     try:
         user = User.query.filter_by(id=id).first()
         if user:
@@ -96,8 +95,8 @@ def update_user():
 
 
 # delete a user by id
-@app.route("api/flask/users/<id>", methods=["DELETE"])
-def delete_user():
+@app.route("/api/flask/users/<id>", methods=["DELETE"])
+def delete_user(id):
     try:
         user = User.query.filter_by(id=id).first()
         if user:
